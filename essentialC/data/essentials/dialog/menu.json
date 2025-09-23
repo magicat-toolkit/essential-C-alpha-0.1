@@ -1,0 +1,105 @@
+{
+    "type": "minecraft:dialog_list",
+    "title": "pincipal menu",
+    "external_title":"EPM",
+    "dialogs":[
+    {
+        "type": "minecraft:confirmation",
+        "title": "Manequins",
+        "inputs": [
+            {
+                "key": "name",
+                "type": "minecraft:text",
+                "label": "Name"
+            },
+            {
+                "key": "profile",
+                "type": "minecraft:text",
+                "label": "Profile"
+            },
+            {
+                "key": "isImmovable",
+                "type": "minecraft:boolean",
+                "label": "IsImmovable"
+            },
+            {
+                "key": "pose",
+                "label": "Pose",
+                "type": "single_option",
+                "options": ["standing", "crouching", "swimming", "sleeping"]
+            },
+            {
+                "key": "isAligned",
+                "type": "boolean",
+                "label": "Aligned",
+                "on_true": "execute align xyz run summon mannequin ~0.5 ~ ~0.5 ",
+                "on_false": "summon mannequin ~ ~ ~ "
+            }
+        ],
+        "yes": {
+            "label": "Summon mannequin",
+            "action": {
+            "type": "dynamic/run_command",
+            "template": "$(isAligned){CustomName:\"$(name)\", profile:\"$(profile)\", immovable:$(isImmovable), pose: \"$(pose)\"}"
+        }
+        },
+        "no": {
+        "label": "Exit"
+        }
+    },
+    {
+        "title": "Kills",
+        "type": "minecraft:multi_action",
+        "actions":[
+            {
+                "label": "kill @e",
+                "tooltip": "kill all entity",
+                "action": {
+                    "type": "run_command",
+                    "command": "kill @e[type= !player, tag= !simply_a_giant_cube]"
+                }
+            },
+            {
+                "label": "kill @s",
+                "tooltip": "kill yourself",
+                "action": {
+                    "type": "run_command",
+                    "command": "kill @s"
+                }
+            }
+        ],
+        "columns": 2
+    },
+    {
+        "type": "confirmation",
+        "title": "Velocity",
+        "inputs": [
+            {
+                "key": "tick",
+                "type": "number_range",
+                "label": "Tick",
+                "start": 0,
+                "end": 20,
+                "initial": 20,
+                "step": 1
+            }
+        ],
+        "yes": {
+            "label": "Set to __",
+            "action": {
+                "type": "dynamic/run_command",
+                "template": "tick rate $(tick)"
+            }
+        },
+        "no": {
+            "label": "no"
+        }
+
+    }
+    ],
+    "columns": 1,
+    "pause": false,
+    "can_close_with_escape": true,
+    "after_action": "none"
+    
+}

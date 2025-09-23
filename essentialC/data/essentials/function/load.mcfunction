@@ -1,0 +1,1 @@
+tellraw @p {text:"ESSENTIAL DATAPACK HAS BEEN LOADED",color: "dark_red",bold:true}
